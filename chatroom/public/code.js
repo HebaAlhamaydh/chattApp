@@ -27,6 +27,18 @@
  });
  app.querySelector(".chat.screen #message-input").value =="";
  });
+ app.querySelector(".chat.screen #exit-chat").addEventListener("click",function(){
+  socket.emi("exituser",uname);
+  window.location.href=window.location.href;
+ });
+
+socket.on("update",function(update){
+renderMessage("update",update);
+});
+socket.on("chat",function(message){
+   renderMessage("other",message);
+   });
+
  function renderMessage(type,message){
     let messageContainer=app.querySelector(".chat.screen .messages");
     if(type == "my")
@@ -56,7 +68,7 @@
         el.innerTextL=message;
         messageContainer.appendChild(el);
     }
-    messageContainer.scrollTop=messageContainer.scrollHeight.messageContainer.clientHeight;
+    messageContainer.scrollTop=messageContainer.scrollHeight- messageContainer.clientHeight;
 
  }
 })();
